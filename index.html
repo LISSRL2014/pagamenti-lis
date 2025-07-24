@@ -38,7 +38,7 @@
   <div class="container">
     <h2>L.I.S. S.R.L. - Pagamento</h2>
     <form id="paymentForm">
-      <label for="amount">Importo (€):</label>
+      <label for="amount">Importo (â‚¬):</label>
       <input type="number" id="amount" name="amount" min="1" required>
 
       <label for="method">Metodo di pagamento:</label>
@@ -72,7 +72,7 @@
           window.location.href = `https://buy.stripe.com/test_xxxxxxxxxxxxxxx?amount=${amount}`;
           break;
         case 'bank':
-          alert("Per favore, effettua un bonifico a:\n\nIntestazione: L.I.S. S.R.L.\nIBAN: IT00X0000000000000000000000\nCausale: Pagamento di " + amount + " euro");
+          alert("Per favore, effettua un bonifico a:\n\nIntestazione: L.I.S. S.R.L.\nIBAN: IT91M0306905045100000007912\nCausale: Pagamento di " + amount + " euro");
           document.getElementById('success').classList.remove('hidden');
           break;
         default:
