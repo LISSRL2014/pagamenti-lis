@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento - L.I.S. S.R.L.</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    h2 { text-align: center; }
+    label { display: block; margin-top: 1rem; }
+    input[type="number"], select, button {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .hidden { display: none; }
+    .success { color: green; margin-top: 1rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>L.I.S. S.R.L. - Pagamento</h2>
+    <form id="paymentForm">
+      <label for="amount">Importo (€):</label>
+      <input type="number" id="amount" name="amount" min="1" required>
+
+      <label for="method">Metodo di pagamento:</label>
+      <select id="method" name="method" required>
+        <option value="">-- Seleziona --</option>
+        <option value="paypal">PayPal</option>
+        <option value="card">Carta di credito/debito</option>
+        <option value="bank">Bonifico bancario</option>
+      </select>
+
+      <button type="submit">Procedi al pagamento</button>
+    </form>
+    <div id="success" class="success hidden">
+      ? Pagamento avvenuto con successo. Grazie!
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const amount = document.getElementById('amount').value;
+      const method = document.getElementById('method').value;
+
+      if (!amount || !method) return;
+
+      switch (method) {
+        case 'paypal':
+          window.location.href = `https://www.paypal.com/paypalme/tuonome/${amount}`;
+          break;
+        case 'card':
+          window.location.href = `https://buy.stripe.com/test_xxxxxxxxxxxxxxx?amount=${amount}`;
+          break;
+        case 'bank':
+          alert("Per favore, effettua un bonifico a:\n\nIntestazione: L.I.S. S.R.L.\nIBAN: IT00X0000000000000000000000\nCausale: Pagamento di " + amount + " euro");
+          document.getElementById('success').classList.remove('hidden');
+          break;
+        default:
+          alert("Seleziona un metodo valido");
+      }
+    });
+  </script>
+</body>
+</html>
